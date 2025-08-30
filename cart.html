@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nike | Luxury Collection</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #fdf6e3, #fffaf0);
+      color: #2c3e50;
+    }
+
+    h1 {
+      color: #b76e79;
+      text-align: center;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: #b76e79;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 500;
+    }
+
+    .home-button:hover {
+      background: #a35c69;
+    }
+
+    .cart-item-card {
+      background: white;
+      padding: 20px;
+      margin: 10px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 50%;
+      position: relative;
+    }
+
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .total {
+      text-align: center;
+      font-size: 1.5em;
+      margin-top: 30px;
+      color: #8d6748;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-button">← Home</a>
+  <h1>Your Cart</h1>
+
+  <div id="cart-items-container">
+    <!-- Cart items will be injected here -->
+  </div>
+
+  <div class="total" id="total-price">Total: ₹0</div>
+
+  <script>
+    function loadCartItems() {
+      const cartItemsContainer = document.getElementById("cart-items-container");
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+      cartItemsContainer.innerHTML = "";
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        const itemCard = document.createElement("div");
+        itemCard.classList.add("cart-item-card");
+        itemCard.innerHTML = `
+          <h2>${item.name}</h2>
+          <p>Price: ₹${item.price}</p>
+          <button class="delete-btn" onclick="deleteItem(${index})">🗑 Delete</button>
+        `;
+        cartItemsContainer.appendChild(itemCard);
+        total += item.price;
+      });
+
+      document.getElementById("total-price").textContent = "Total: ₹" + total;
+    }
+
+    function deleteItem(index) {
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      cartItems.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      loadCartItems();
+    }
+
+    window.onload = loadCartItems;
+  </script>
+</body>
+</html>
