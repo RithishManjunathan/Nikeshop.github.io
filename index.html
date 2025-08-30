@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nike | Luxury Collection</title>
+  <link href="logo.avif" rel="icon">
+
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to bottom right, #FAF9F6, #FADADD);
+      color: #333;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    .header {
+      background-color: #fff;
+      color: #B76E79;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav a {
+      color: #B76E79;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      transition: color 0.3s ease;
+    }
+
+    .nav a i { margin-right: 8px; }
+    .nav a:hover { color: #a05665; }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+      display: none;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #B76E79;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(-50px);
+      animation: fadeDown 1s ease-out forwards;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeDown 1s ease-out 0.3s forwards;
+    }
+
+    img.shoe-image {
+      width: 320px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(183, 110, 121, 0.3);
+      opacity: 0;
+      transform: translateY(100px);
+      animation: slideUp 1s ease-out 0.8s forwards;
+    }
+
+    .btn {
+      margin-top: 40px;
+      padding: 14px 30px;
+      background-color: #B76E79;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease-out 1.2s forwards;
+    }
+
+    .btn:hover {
+      background-color: #a05665;
+      transform: scale(1.05);
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media screen and (max-width: 768px) {
+      h1 { font-size: 2.3rem; }
+      img.shoe-image { width: 250px; }
+      .btn { padding: 12px 25px; }
+      .nav { flex-direction: column; gap: 15px; }
+      .header { flex-direction: column; align-items: flex-start; }
+    }
+
+    .custom-cursor {
+      width: 25px;
+      height: 25px;
+      border: 2px solid #B76E79;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+    }
+
+    #toggle-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #B76E79;
+      cursor: pointer;
+      margin-left: 20px;
+      transition: color 0.3s ease;
+    }
+
+    #toggle-btn:hover { color: #a05665; }
+
+    .dark-mode {
+      background: #1a1a1a;
+      color: #f2f2f2;
+    }
+
+    .dark-mode .header { background: #222; color: #f2f2f2; }
+    .dark-mode .nav a { color: #f2f2f2; }
+    .dark-mode .btn { background-color: #f2f2f2; color: #1a1a1a; }
+    .dark-mode .custom-cursor { border-color: #f2f2f2; }
+
+    .floating-text {
+      font-size: 1.2rem;
+      color: #B76E79;
+      font-weight: bold;
+      animation: floatUpDown 2s ease-in-out infinite;
+      margin-bottom: 10px;
+      position: relative;
+      top: 0;
+    }
+
+    @keyframes floatUpDown {
+      0%, 100% { top: 0; }
+      50% { top: -10px; }
+    }
+
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom right, #FAF9F6, #FADADD);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .loader {
+      font-size: 2rem;
+      color: #B76E79;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+   
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="loader"><i class="fas fa-shoe-prints"></i> Loading...</div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+
+  <!-- Header -->
+  
+  <header class="header">
+    <div class="logo"><i class="fas fa-shoe-prints"></i> Nike</div>
+    <nav class="nav">
+      <a href="#"><i class="fas fa-house"></i> Home</a>
+      <a href="products.html">Products</a>
+     <a href="contact.html">Contact</a>
+     <a href="cart.html">🛒 Cart</a>
+
+
+      <button id="toggle-btn" onclick="toggleMode()"><i class="fas fa-moon"></i></button>
+    </nav>
+  </header>
+<div class="inspiring-quote">
+  <span>"Greatness is earned — one step at a time."</span>
+</div>
+
+
+  <!-- Main Content -->
+  <div class="container" id="main-content">
+    <h1>Step Into Style</h1>
+    <div class="floating-text">✨ New Arrival</div>
+    <p>Discover the luxury of the latest Nike collection</p>
+    <img src="nike red.avif" alt="Nike Shoe" class="shoe-image" />
+    <br />
+    <button class="btn" onclick="explore()">Explore Collection</button>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function explore() {
+      window.open("https://www.nike.com/in/", "_blank");
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Cursor
+    const cursor = document.querySelector('.custom-cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Toggle Mode
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle("dark-mode");
+      const icon = document.getElementById("toggle-btn").querySelector("i");
+      icon.classList.toggle("fa-moon");
+      icon.classList.toggle("fa-sun");
+      localStorage.setItem("mode", body.classList.contains("dark-mode") ? "dark" : "light");
+    }
+
+    // Apply saved theme
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedMode = localStorage.getItem("mode");
+      if (savedMode === "dark") {
+        document.body.classList.add("dark-mode");
+        const icon = document.getElementById("toggle-btn").querySelector("i");
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+      }
+    });
+
+    // Preloader Handling
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('preloader');
+      const content = document.getElementById('main-content');
+      loader.classList.add('hidden');
+      setTimeout(() => {
+        loader.style.display = 'none';
+        content.style.display = 'block';
+      }, 600);
+    });
+  </script>
+
+  <!-- Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <p id="quote" style="font-style: italic; color: #666; margin-top: 40px;"></p>
+
+<script>
+  
+const quotes = [
+  "Just Do It 💪",
+  "Style Meets Performance 🎯",
+  "Engineered for Speed 🏃‍♂️",
+  "Redefine Comfort 👟"
+];
+let i = 0;
+setInterval(() => {
+  document.getElementById("quote").innerText = quotes[i];
+  i = (i + 1) % quotes.length;
+}, 3000);
+</script>
+<style>
+body {
+  background: linear-gradient(-45deg, #ffe6eb, #fff, #ffe6eb, #fff);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
+<style>
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-in-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.inspiring-quote {
+  margin-top: 60px;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: #b45b6a;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  background: linear-gradient(to right, #ffeaea, #fbe3e3);
+  box-shadow: 0 4px 20px rgba(180, 90, 106, 0.1);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1.2s ease-out 0.5s forwards;
+  transition: all 0.4s ease;
+}
+
+.inspiring-quote:hover {
+  background: #fff0f5;
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(180, 90, 106, 0.2);
+  cursor: pointer;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.sneaker-selector {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.sneaker-selector h2 {
+  color: #b76e79;
+  margin-bottom: 20px;
+}
+
+.sneakers {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.sneakers img {
+  width: 140px;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.sneakers img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(183, 110, 121, 0.3);
+}
+
+.sneaker-details {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  color: #333;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  } to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+
+<script>
+window.addEventListener("scroll", () => {
+  document.querySelectorAll('.fade-in').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add("visible");
+    }
+  });
+});
+function selectSneaker(name, element) {
+    const details = document.getElementById('sneakerDetails');
+    details.innerHTML = `
+      <p><strong>${name}</strong> selected.</p>
+      <img src="${element.src}" alt="${name}" style="width: 200px; margin-top: 15px; border-radius: 20px;">
+    `;
+  }
+</script>
+<div class="sneaker-selector">
+  <h2>Select Your Sneaker</h2>
+  <div class="sneakers">
+    <img src="nike air max.avif" alt="Air Max" onclick="selectSneaker('Air Max', this)">
+    <img src="air force 1.avif" alt="Air Force 1" onclick="selectSneaker('Air Force 1', this)">
+    <img src="jorden retro.avif" alt="Jordan Retro" onclick="selectSneaker('Jordan Retro', this)">
+  </div>
+  <div class="sneaker-details" id="sneakerDetails">
+    <p>Click a sneaker to see details</p>
+  </div>
+</div>
+</body>
+</html>

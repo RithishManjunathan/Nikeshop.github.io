@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nike | Luxury Collection</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe5ec, #f9f1f1);
+      color: #2c3e50;
+      text-align: center;
+      padding: 40px;
+      cursor: none;
+    }
+
+    .offer-container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .offer-container img {
+      max-width: 100%;
+      border-radius: 15px;
+    }
+
+    .offer-title {
+      color: #d6336c;
+      font-size: 2em;
+      margin: 20px 0;
+    }
+
+    .price {
+      font-size: 1.5em;
+      color: #198754;
+      margin: 10px 0;
+    }
+
+    .home-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #d6336c;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .home-button:hover {
+      background-color: #c01e55;
+      transform: scale(1.05);
+    }
+
+    .suggestion-box {
+      margin-top: 60px;
+    }
+
+    .suggestion-box h2 {
+      color: #d6336c;
+      font-size: 1.8em;
+      margin-bottom: 25px;
+    }
+
+    .suggestion-items {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .item {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 15px;
+      width: 200px;
+      transition: transform 0.3s ease;
+    }
+
+    .item img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .item p {
+      margin: 10px 0 5px;
+      color: #2c3e50;
+    }
+
+    .item .price {
+      font-weight: bold;
+      color: #198754;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    .item button {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 65, 108, 0.4);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .item button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+    }
+
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 25px;
+      height: 25px;
+      background-color: rosybrown;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.15s ease, background-color 0.25s ease;
+    }
+
+    .ai-selector {
+  margin-top: 60px;
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #2c3e50;
+}
+
+.ai-selector h2 {
+  font-size: 2em;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.ai-selector input,
+.ai-selector button {
+  padding: 12px 18px;
+  margin-top: 10px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1em;
+  outline: none;
+}
+
+.ai-selector input {
+  width: 70%;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.ai-selector button {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.ai-selector button:hover {
+  transform: scale(1.05);
+}
+
+#ai-results {
+  margin-top: 20px;
+  font-size: 1.1em;
+  font-style: italic;
+  color: #198754;
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ai-selector {
+  margin-top: 60px;
+  padding: 40px;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #ffffff, #f2f2f2);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #2c3e50;
+  transition: all 0.3s ease-in-out;
+}
+
+.ai-selector h2 {
+  font-size: 2.2em;
+  background: linear-gradient(to right, #111, #d6336c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.ai-selector input,
+.ai-selector button {
+  padding: 14px 22px;
+  margin-top: 15px;
+  border-radius: 35px;
+  border: none;
+  font-size: 1em;
+  outline: none;
+}
+
+.ai-selector input {
+  width: 65%;
+  background: #fefefe;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.ai-selector button {
+  background: linear-gradient(135deg, #111, #d6336c);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ai-selector button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#ai-results {
+  margin-top: 25px;
+  font-size: 1.2em;
+  font-style: italic;
+  color: #198754;
+  transition: all 0.3s ease-in-out;
+}
+.custom-shoe-designer {
+  background: #fefefe;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  margin: 60px auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.custom-shoe-designer label {
+  display: block;
+  margin: 15px 0;
+  font-weight: 500;
+}
+
+.custom-shoe-designer input[type="color"],
+.custom-shoe-designer input[type="text"] {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.shoe-preview {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.shoe-body {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  background: #000;
+  border-radius: 30px;
+  transition: 0.3s ease;
+}
+
+.nike-logo {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: red;
+}
+
+.shoe-laces {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.shoe-initials {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  background: #b76e79;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.nav-button:hover {
+  background: #a35c69;
+}
+
+  </style>
+</head>
+<body>
+ <div class="top-bar">
+  <div class="button-group">
+    <a href="index.html" class="nav-button">← Home</a>
+    <a href="cart.html" class="nav-button">🛒 Cart</a>
+  </div>
+</div>
+<h1>Your Cart</h1>
+
+
+  <div class="suggestion-box">
+    <h2>You may also like</h2>
+    <div class="suggestion-items">
+      <div class="item">
+        <img src="nike air force 1.png" alt="Nike Air Force 1">
+        <p>Nike Air Force 1</p>
+        <p class="price">₹5,499</p>
+        <button onclick="addToCart('Nike Air Force 1', 5499)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <img src="Air Jordan 1 Low SE.avif" alt="Air Jordan 1 Low SE">
+        <p>Air Jordan 1 Low SE</p>
+        <p class="price">₹7,999</p>
+        <button onclick="addToCart('Air Jordan 1 Low SE', 7999)">Add to Cart</button>
+      </div>
+      <div class="item">
+        <img src="Nike Air Max 270.avif" alt="Nike Air Max 270">
+        <p>Nike Air Max 270</p>
+        <p class="price">₹6,999</p>
+        <button onclick="addToCart('Nike Air Max 270', 6999)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+<div class="ai-selector">
+  <h2>🧠 AI Shoe Selector</h2>
+  <input type="text" id="userQuery" placeholder="Tell us what you need shoes for (e.g., running, party)" />
+  <button onclick="suggestShoes()">Get Suggestion</button>
+  <div id="ai-results"></div>
+</div>
+
+  
+  <div class="custom-cursor" id="cursor"></div>
+
+  <script>
+    document.addEventListener('mousemove', e => {
+      const cursor = document.getElementById('cursor');
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    function addToCart(productName, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name: productName, price: price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(productName + " added to cart!");
+    }
+
+   
+  </script>
+ 
+  <script>
+function suggestShoes() {
+  const input = document.getElementById("userQuery").value.toLowerCase();
+  const resultDiv = document.getElementById("ai-results");
+  let suggestionHTML = "";
+
+  if (input.includes("running")) {
+    suggestionHTML = `
+      <p>🏃‍♂️ You might love the <strong>Nike Air Zoom Pegasus</strong>!</p>
+      <img src=" nike air zoom pegasus.avif" alt="Nike Air Zoom Pegasus" style="max-width: 250px; border-radius: 15px; margin-top: 10px;">
+    `;
+  } else if (input.includes("party") || input.includes("fashion")) {
+    suggestionHTML = `
+      <p>🎉 Try out the bold <strong>Nike Air Max 270</strong>!</p>
+      <img src="Nike Air Max 270.avif" alt="Nike Air Max 270" style="max-width: 250px; border-radius: 15px; margin-top: 10px;">
+    `;
+  } else if (input.includes("daily") || input.includes("casual")) {
+    suggestionHTML = `
+      <p>👟 <strong>Nike Air Force 1</strong> is a timeless classic!</p>
+      <img src="nike air force 1.png" alt="Nike Air Force 1" style="max-width: 250px; border-radius: 15px; margin-top: 10px;">
+    `;
+  } else if (input.includes("basketball")) {
+    suggestionHTML = `
+      <p>⛹️‍♂️ Go for the <strong>Air Jordan 1 or Lebron Series</strong>!</p>
+      <img src="Air Jordan 1 Low SE.avif" alt="Air Jordan 1" style="max-width: 250px; border-radius: 15px; margin-top: 10px;">
+    `;
+  } else if (input.includes("gym") || input.includes("training") || input.includes("workout")) {
+    suggestionHTML = `
+      <p>💪 For serious workouts, check out the <strong>Nike Metcon 9</strong>!</p>
+      <img src="nike mecton 9.avif" alt="Nike Metcon 9" style="max-width: 250px; border-radius: 15px; margin-top: 10px;">
+    `;
+  } else {
+    suggestionHTML = `
+      <p>🤖 Sorry, no match found. Try a different use case!</p>
+    `;
+  }
+
+  resultDiv.innerHTML = suggestionHTML;
+}
+</script>
+
+
+<div class="custom-shoe-designer">
+  <h2>🎨 Customize Your Nike Shoe</h2>
+  
+  <label>Shoe Color:
+    <input type="color" id="shoeColor" value="#000000">
+  </label>
+
+  <label>Lace Color:
+    <input type="color" id="laceColor" value="#ffffff">
+  </label>
+
+  <label>Logo Color:
+    <input type="color" id="logoColor" value="#ff0000">
+  </label>
+
+  <label>Your Initials:
+    <input type="text" id="initials" maxlength="3" placeholder="ABC">
+  </label>
+
+  <div class="shoe-preview">
+    <div class="shoe-body" id="shoeBody">
+      <div class="nike-logo" id="nikeLogo">✓</div>
+      <div class="shoe-laces" id="shoeLaces"></div>
+      <div class="shoe-initials" id="shoeInitials"></div>
+    </div>
+  </div>
+</div>
+<script>
+  const shoeBody = document.getElementById("shoeBody");
+  const shoeLaces = document.getElementById("shoeLaces");
+  const nikeLogo = document.getElementById("nikeLogo");
+  const shoeInitials = document.getElementById("shoeInitials");
+
+  document.getElementById("shoeColor").addEventListener("input", function () {
+    shoeBody.style.backgroundColor = this.value;
+  });
+
+  document.getElementById("laceColor").addEventListener("input", function () {
+    shoeLaces.style.backgroundColor = this.value;
+  });
+
+  document.getElementById("logoColor").addEventListener("input", function () {
+    nikeLogo.style.color = this.value;
+  });
+
+  document.getElementById("initials").addEventListener("input", function () {
+    shoeInitials.textContent = this.value.toUpperCase();
+  });
+</script>
+
+</body>
+</html>
